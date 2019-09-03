@@ -1,0 +1,24 @@
+
+version: '3.3'
+
+services:
+
+  rosbasic:
+    build:
+      context: ./rosbasic
+      dockerfile: Dockerfile
+
+  picam:
+    build:
+      context: ./picam
+      dockerfile: Dockerfile
+    image: picam
+    environment:
+      LOCALIP: 10.0.1.5
+      ROS_MASTER_URI: http://10.0.1.5:11311/
+      ROS_HOSTNAME: marks-imac
+      DISPLAY: $LOCALIP:0
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix:ro"
+#    command: "./run_roscore.sh"
+#    command: 'python /catkin_ws/src/picam/testnode.py'
